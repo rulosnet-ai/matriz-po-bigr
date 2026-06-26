@@ -1,0 +1,54 @@
+# Generador de Matriz de Producción desde PDF de Orden de Compra
+
+Esta app lee un PDF de orden de compra (formato Big R) y genera automáticamente
+un Excel con la matriz de tallas (Cintura x Largo) por cada estilo/lavado.
+
+## Instalación (solo se hace una vez)
+
+1. Asegúrate de tener Python instalado (ya lo tienes si seguiste los pasos previos).
+2. Abre la terminal (cmd) en la carpeta donde están estos archivos.
+3. Instala las librerías necesarias con:
+
+   pip install -r requirements.txt
+
+## Cómo usar la app (cada vez que la necesites)
+
+1. Abre la terminal (cmd).
+2. Muévete a la carpeta del proyecto, por ejemplo:
+
+   cd C:\Users\TuNombre\Documents\MatrizPO
+
+3. Corre la app con:
+
+   streamlit run app.py
+
+4. Se abrirá automáticamente una pestaña en tu navegador.
+5. Sube el PDF de la orden de compra.
+6. Revisa el resumen y las advertencias (si las hay).
+7. Da clic en "Descargar matriz en Excel".
+
+## Qué hace la app automáticamente
+
+- Extrae cada línea de detalle del PDF (línea, tienda, cantidad, SKU,
+  descripción, talla, código MFG, costo).
+- Separa la talla en Cintura y Largo.
+- Agrupa las líneas por código MFG (estilo + lavado de fabricación).
+- Genera una matriz Cintura (columnas) x Largo (filas) por cada grupo,
+  con totales por fila, columna y general (con fórmulas en Excel).
+- Verifica que el total de piezas extraído coincida con el total
+  declarado en el PDF, y avisa si hay alguna diferencia.
+- Detecta automáticamente líneas donde la descripción de texto no
+  coincide con el código MFG dominante de ese grupo (como pasó con
+  el SKU 2643030 en la orden de prueba) y te las muestra para que
+  las revises antes de confiar en la matriz.
+
+## Si en el futuro cambia el formato del PDF
+
+Esta versión está ajustada al formato estándar de Big R. Si llega un PDF
+con una estructura distinta (otro cliente, otro layout), es probable que:
+
+- No se detecte ninguna línea (la app te avisará con un error), o
+- Aparezcan advertencias de "línea no se pudo interpretar".
+
+En ese caso, lo más sencillo es que me compartas el PDF nuevo y ajusto el
+patrón de extracción para ese formato específico.
