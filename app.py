@@ -487,7 +487,7 @@ def build_excel_multi(orders: list[dict]) -> bytes:
 import pandas as pd
 
 st.set_page_config(page_title="Matriz de Producción desde PO", layout="wide")
-st.title("📋 Generador de Matriz de Producción")
+st.title("📋 Generador de Matriz de Producción — v2 (carga múltiple)")
 st.caption(
     "Sube una o varias órdenes de compra en PDF (formato Big R) y obtén el resumen, "
     "la validación de lectura y las matrices Cintura x Largo por estilo/lavado."
@@ -681,5 +681,3 @@ if uploaded_files:
     )
 else:
     st.info("Sube uno o varios PDFs para comenzar.")
-
-# ver 2
